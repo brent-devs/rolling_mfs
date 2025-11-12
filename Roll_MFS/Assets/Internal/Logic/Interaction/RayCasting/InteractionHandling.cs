@@ -64,10 +64,6 @@ public class InteractionHandling : MonoBehaviour
         }
     }
 
-    void Start() {
-        mainCamera = GetComponent<Camera>();
-    }
-
     void Update()
     {
         switch (currState)

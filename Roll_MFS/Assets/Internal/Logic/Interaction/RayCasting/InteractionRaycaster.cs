@@ -14,21 +14,29 @@ public class InteractionRaycaster : MonoBehaviour
         Ray ray = InteractionHandling.Instance.MainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         LayerMask InteractionLayer = InteractionLayerForRaycaster;
+        Debug.Log("Begin Raycast");
 
         if (InteractionHandling.Instance.IsUIBlockingRaycast())
         {
+            Debug.Log("Interaction Blocking Raycast");
             ResetBackToNeutral();
             return;
         }
 
         if (CursorLogic.Instance.State == CursorState.Visible || CursorLogic.Instance.State == CursorState.CanClickItem)
         {
+            Debug.Log("Raycast Tech");
+
             if (Physics.Raycast(ray, out hit, InteractionSettings.Instance.StandardCursorRange, InteractionLayer))
             {
+
+                Debug.Log("Raycast Tech 1");
                 if (hit.collider != null)
                 {
+                    Debug.Log("Raycast Tech 2");
                     if (hit.collider.gameObject.TryGetComponent(out IInteractable interactObj))
                     {
+                        Debug.Log("Raycast Tech 3");
                         if (interactObj.CanInteract())
                         {
                             if (InteractionHandling.Instance.CurrentHoveredInteractable != interactObj)
