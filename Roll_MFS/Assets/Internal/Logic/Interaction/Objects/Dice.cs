@@ -166,7 +166,7 @@ public class Dice : PhysicsInteractable
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         IsInAir = true;
-        // TODO(oliver): change to rolling layer
+        // TODO(oliver): change to  layer
         gameObject.layer = Mathf.RoundToInt(Mathf.Log(DiceSettings.Instance.InteractionLayer.value, 2));
     }
     
@@ -187,16 +187,16 @@ public class Dice : PhysicsInteractable
     {
         CurrState = DieState.Rolling;
         SetupRollingPhysics();
+        HandleRollLogic();
     }
 
-    
+
     public void TriggerRollEndEvent()
     {
         CurrState = DieState.Resting;
         SetupEndOfRollPhysics();
+        HandleEndOfRollLogic();
     }
-
-
 
     public void SetupRollFinishedPhysics()
     {
@@ -207,8 +207,30 @@ public class Dice : PhysicsInteractable
 
     public void TriggerLiftEvent()
     {
-        rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringHold;
         CurrState = DieState.InHand;
+        SetupLiftPhysics();
+        HandleLiftLogic();
+    }
+
+    private void SetupLiftPhysics()
+    {
+        rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringHold;
         gameObject.layer = (int)Mathf.Log(DiceSettings.Instance.DiceHoldingLayer.value, 2);
+    }
+
+    private void HandleEndOfRollLogic()
+    {
+        RollHandling.Instance.HandleDiceRollStopped(this);
+    }
+
+
+    private void HandleLiftLogic()
+    {
+        RollHandling.Instance.HandleBeginDiceHold(this);
+    }
+
+    private void HandleRollLogic()
+    {
+        RollHandling.Instance.HandleDiceRolled(this);
     }
 }

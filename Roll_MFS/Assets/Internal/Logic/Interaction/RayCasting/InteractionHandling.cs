@@ -26,6 +26,7 @@ public class InteractionHandling : MonoBehaviour
     public float DiceGrabbingMinY = 0.1f;
     public float DiceGrabbingMaxY = 0.9f;
     public float GrabbingCursorRange = 0.9f;
+    public float PlacementPositionRange = 1.4f;
 
 
     [Header("Dependencies")]
@@ -206,5 +207,20 @@ public class InteractionHandling : MonoBehaviour
         }
         lastValidCursorPosForHover = ray.GetPoint(GrabbingCursorRange);
         return lastValidCursorPosForHover;
+    }
+
+    public PlacementPosition RaycastCursorPosPlacementPosition()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, InteractionHandling.Instance.PlacementPositionRange, CardSettings.Instance.PlaceLayer))
+        {
+            if (hit.collider != null)
+            {
+                return hit.collider.gameObject.GetComponent<PlacementPosition>();
+            }
+        }
+
+        return null;
     }
 }

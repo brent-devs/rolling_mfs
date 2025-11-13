@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class MovableInteractable : MonoBehaviour, IInteractable
@@ -7,7 +8,8 @@ public abstract class MovableInteractable : MonoBehaviour, IInteractable
     private int originalLayer = -1;
     private bool hasCachedLayer;
     public int OriginalLayer => originalLayer;
-
+    public String ItemName;
+    
     public void CacheOriginalLayer()
     {
         if (hasCachedLayer)
