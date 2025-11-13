@@ -15,6 +15,17 @@ public abstract class GameplayLogic
         this.session = session;
     }
 
+    public void IncrementPlayerTurn()
+    {
+        if (DevSettings.Instance.ShouldReturnToPlayerTurn)
+        {
+            currentPlayerTurn = 0;
+        }
+        else {
+            currentPlayerTurn = (currentPlayerTurn + 1) % session.Settings.PlayerCount;
+        }
+    }
+
     public abstract int GetCurrentPlayerTurn();
     
     public abstract void HandlePlayerHealthLost(int playerIndex, int healthToLose);

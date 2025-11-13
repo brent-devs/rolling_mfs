@@ -31,9 +31,7 @@ public class ClassicGameplayLogic : GameplayLogic
 
     public override void OnTurnEnd()
     {
-        // TODO: Implement turn end logic
-        currentPlayerTurn = (currentPlayerTurn + 1) % session.Settings.PlayerCount;
-        Debug.Log($"Turn ended, next player: {currentPlayerTurn}");
+        EndPlayerIndexTurn(currentPlayerTurn); 
     }
 
     public override void RollStarted()
@@ -43,20 +41,50 @@ public class ClassicGameplayLogic : GameplayLogic
 
     public override void EndPlayerIndexTurn(int playerIndex)
     {
-        // TODO: Implement turn start logic
         Debug.Log($"End turnfor player {playerIndex}");
+        ClassicOnTurnEndLogic();
     }
 
     public override void StartPlayerIndexTurn(int playerIndex)
     {
         // TODO: Implement turn start logic
         Debug.Log($"Start turn for player {playerIndex}");
+        ClassicOnTurnStartLogic();
     }
 
     public override void RollStopped()
     {
         // TODO: Implement turn start logic
         Debug.Log("Roll Finished");
+        OnTurnEnd();
+    }
+
+
+    private void ClassicOnTurnEndLogic()
+    {
+        IncrementPlayerTurn();
+        StartPlayerIndexTurn(currentPlayerTurn);
+    }
+
+
+    private void ClassicOnTurnStartLogic()
+    {
+       SetupInteractionRaycastersForTurn(currentPlayerTurn);
+    }
+
+    private void SetupInteractionRaycastersForTurn(int turn)
+    {
+        if (session.Settings.IsSinglePlayer)
+        {
+            if (turn == 0)
+            {
+                InteractionHandling.Instance.CurrState = InteractionState.MyTurn;
+            }
+            else
+            {
+                InteractionHandling.Instance.CurrState = InteractionState.None;
+            }
+        }
     }
 }
 
