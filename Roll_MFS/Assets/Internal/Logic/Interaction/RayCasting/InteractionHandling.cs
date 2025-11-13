@@ -213,7 +213,7 @@ public class InteractionHandling : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, InteractionHandling.Instance.PlacementPositionRange, CardSettings.Instance.PlaceLayer))
+        if (Physics.Raycast(ray, out hit, PlacementPositionRange, CardSettings.Instance.PlaceableLayer))
         {
             if (hit.collider != null)
             {

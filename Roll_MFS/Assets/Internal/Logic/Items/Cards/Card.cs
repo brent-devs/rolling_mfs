@@ -408,4 +408,26 @@ public class Card : PhysicsInteractable
         }
         Destroy(gameObject);
     }
+
+    public void TriggerLiftEvent()
+    {
+        SetupLiftPhysics();
+    }
+
+    public void TriggerReleaseEvent()
+    {
+        SetupReleasePhysics();
+    }
+
+    public void SetupReleasePhysics()
+    {
+        gameObject.layer = (int)Mathf.Log(CardSettings.Instance.InteractionLayer.value, 2);
+    }
+
+    public void SetupLiftPhysics()
+    {
+        gameObject.layer = (int)Mathf.Log(CardSettings.Instance.HeldInteractionLayer.value, 2);
+        rb.angularDrag = CardSettings.Instance.AngularDragOfCardDuringHold;
+        rb.drag = CardSettings.Instance.DragOfCardDuringHold;
+    }
 }

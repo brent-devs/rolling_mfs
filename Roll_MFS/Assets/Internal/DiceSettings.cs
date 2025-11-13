@@ -11,11 +11,10 @@ public class DiceSettings : MonoBehaviour
     public LayerMask InteractionLayer;
     public LayerMask IgnoreCollisionLayer;
     public LayerMask HoldingLayer;
-    public LayerMask DiceHoldingLayer;
     public LayerMask BoardElementsLayers;
     public LayerMask AllNonUIElements;
     public LayerMask RollingLayer;
-    public LayerMask PlaceLayer;
+    public LayerMask PlaceableLayer;
     public LayerMask WhiteOutlineLayer;
 
     [Header("Hand and Grab")]

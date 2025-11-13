@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
+  - MovingInteractable
   - Interactable
   - ShopInteractable
   - HeldInteractable
   - Rolling
-  - 
-  - 
+  - Placable
   - 
   - 
   - 

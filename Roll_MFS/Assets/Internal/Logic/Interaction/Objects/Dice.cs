@@ -215,7 +215,7 @@ public class Dice : PhysicsInteractable
     private void SetupLiftPhysics()
     {
         rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringHold;
-        gameObject.layer = (int)Mathf.Log(DiceSettings.Instance.DiceHoldingLayer.value, 2);
+        gameObject.layer = (int)Mathf.Log(DiceSettings.Instance.HoldingLayer.value, 2);
     }
 
     private void HandleEndOfRollLogic()
