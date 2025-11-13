@@ -442,6 +442,8 @@ public class Card : PhysicsInteractable
             StopCoroutine(releaseCoroutine);
         }
         releaseCoroutine = StartCoroutine(ShowCursorAfterDelay());
+        Session.Instance.GameplayLogic.CardDropped(this); 
+
     }
 
     private IEnumerator ShowCursorAfterDelay()

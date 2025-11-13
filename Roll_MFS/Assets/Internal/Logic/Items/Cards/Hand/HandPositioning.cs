@@ -2,12 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-public enum CardFlyType {
-    ReturnToHand, 
-    Platform,
-    Chest,
-}
-
 public class HandPositioning : MonoBehaviour
 {
     [Header("Dependencies")]

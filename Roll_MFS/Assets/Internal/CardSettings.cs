@@ -19,7 +19,6 @@ public class CardSettings : MonoBehaviour
     public float CARD_ROTATION_TO_CAM_SPEED = 2.4f;
     public float CURSOR_SHOW_SPEED = 0.4f;
 
-
     [Header("Card Setup")]
     public Material CardGlitchMat;
     public float CardCamTransitionTime = 0.5f;
@@ -39,7 +38,6 @@ public class CardSettings : MonoBehaviour
     public float CardConsumedByChestTime = 0.15f;
     public float AngularDragOfCardDuringHold = 2.0f;
     public float DragOfCardDuringHold = 7.0f;
-
 
     void Awake()
     {

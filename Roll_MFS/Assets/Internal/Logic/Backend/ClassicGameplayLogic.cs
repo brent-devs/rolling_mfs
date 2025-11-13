@@ -86,5 +86,21 @@ public class ClassicGameplayLogic : GameplayLogic
             }
         }
     }
+
+    public override void CardDropped(Card card)
+    {
+        HandleCardDroppedLogic(card);
+    }
+
+    private void HandleCardDroppedLogic(Card card)
+    {
+        PlayerSiderHandler handler = GameSideHandler.Instance.GetPlayerSiderHandler(card.Owner); 
+        if (handler == null)
+        {
+            Debug.LogError("Handler does not exist");
+        }
+
+        handler.HandHandler.MoveCardToHand(card);
+    }
 }
 
