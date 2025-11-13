@@ -54,6 +54,7 @@ public class Dice : PhysicsInteractable
         }
     }
 
+
     private void CheckHangTime()
     {
         if (!hanging)
@@ -89,8 +90,7 @@ public class Dice : PhysicsInteractable
     {
         if (rb.angularVelocity.magnitude < 0.05f)
         {
-            CurrState = DieState.Resting;
-            rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringRoll;
+            OnStoppedEvent.Invoke();
         }
     }
 
@@ -111,13 +111,6 @@ public class Dice : PhysicsInteractable
         }
     }
     */
-
-    public void SwapToStandard()
-    {
-        Material[] mats = renderer.materials;
-        mats[0] = DiceSettings.Instance.DiceStandardMat;
-        renderer.materials = mats;
-    }
 
     /*
     public IEnumerator MoveToDestination(Vector3 destination, bool shouldBeInteractableAtEnd)
@@ -165,42 +158,55 @@ public class Dice : PhysicsInteractable
 
     public void TriggerResultFinder()
     {
-        
+
     }
 
-    public void SetupRollingPhysics()
+    private void SetupEndOfRollPhysics()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        IsInAir = true;
+        // TODO(oliver): change to rolling layer
+        gameObject.layer = Mathf.RoundToInt(Mathf.Log(DiceSettings.Instance.InteractionLayer.value, 2));
+    }
+    
+    private void SetupEndOfTurnPhysics()
+    {
+        gameObject.layer = Mathf.RoundToInt(Mathf.Log(DiceSettings.Instance.InteractionLayer.value, 2));
+    }
+
+    private void SetupRollingPhysics()
     {
         IsInAir = true;
-        CurrState = DieState.Rolling;
         rb.useGravity = true;
         rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringRoll;
-        gameObject.layer = DiceSettings.Instance.HideInteractionLayer;
+        gameObject.layer = Mathf.RoundToInt(Mathf.Log(DiceSettings.Instance.RollingLayer.value, 2));
     }
 
-
-
-    public void SetupDisplayRollFinished()
+    public void TriggerRollEvent()
     {
-        rb.isKinematic = false;
-        Debug.Log("SetupDisplayRollFinished");
-        gameObject.layer = DiceSettings.Instance.InteractionLayer;
-        IsInAir = false;
-        CurrState = DieState.Resting;
-        // Reset angular drag to default when dice is completely stopped
-        rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringRoll;
+        CurrState = DieState.Rolling;
+        SetupRollingPhysics();
     }
+
+    
+    public void TriggerRollEndEvent()
+    {
+        CurrState = DieState.Resting;
+        SetupEndOfRollPhysics();
+    }
+
+
 
     public void SetupRollFinishedPhysics()
     {
         IsInAir = false;
         CurrState = DieState.Resting;
-        // Reset angular drag to default when dice is completely stopped
         rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringRoll;
     }
 
-    public void OnLift()
+    public void TriggerLiftEvent()
     {
-        rb.useGravity = false;
         rb.angularDrag = DiceSettings.Instance.AngularDragOfDiceDuringHold;
         CurrState = DieState.InHand;
         gameObject.layer = (int)Mathf.Log(DiceSettings.Instance.DiceHoldingLayer.value, 2);

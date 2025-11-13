@@ -357,15 +357,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInAir: 0
-  OnLiftEvent:
+  OnGrabbedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 172869765}
+        m_TargetAssemblyTypeName: Dice, Assembly-CSharp
+        m_MethodName: TriggerLiftEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnReleaseEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 172869765}
+        m_TargetAssemblyTypeName: Dice, Assembly-CSharp
+        m_MethodName: TriggerRollEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnStoppedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 172869765}
+        m_TargetAssemblyTypeName: Dice, Assembly-CSharp
+        m_MethodName: TriggerRollEndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnCollisionEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1089,10 +1125,10 @@ MonoBehaviour:
   HeldLayerName: HeldInteractable
   BoardElementsMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   AllNonUIElements:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 983
   FollowCursorThreshold: 0.025
   CursorFollowMagnitudeMultiplier: 1.4
   DiceOffsetFromBoardElements: 0.07
@@ -1271,28 +1307,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HideInteractionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   InteractionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   IgnoreCollisionLayer:
     serializedVersion: 2
     m_Bits: 0
   HoldingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   DiceHoldingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   BoardElementsLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   AllNonUIElements:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 983
   RollingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   PlaceLayer:
     serializedVersion: 2
     m_Bits: 0

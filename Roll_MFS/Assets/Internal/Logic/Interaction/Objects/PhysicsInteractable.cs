@@ -19,7 +19,7 @@ public enum HoverType
 public class PhysicsInteractable : MovableInteractable
 {
     [Header("Setup")]
-    public UnityEvent OnLiftEvent;
+    public UnityEvent OnGrabbedEvent;
     public UnityEvent OnReleaseEvent;
     public UnityEvent OnStoppedEvent;
     public UnityEvent OnCollisionEvent;
@@ -57,15 +57,6 @@ public class PhysicsInteractable : MovableInteractable
         visual = transform.Find("Visual");
     }
 
-    public void FixedUpdate()
-    {
-        if (IsInAir)
-        {
-            CheckStoppedMovingInAir();
-        }
-    }
-
-
     public override void Interact()
     {
         if (gameObject == null)
@@ -87,7 +78,7 @@ public class PhysicsInteractable : MovableInteractable
     {
         base.OnGrabbed();
         rb.useGravity = false;
-        OnLiftEvent?.Invoke();
+        OnGrabbedEvent?.Invoke();
     }
 
     public override void OnReleased()
@@ -172,6 +163,7 @@ public class PhysicsInteractable : MovableInteractable
 
     public void OnStoppedMovingFromAir()
     {
+        Debug.Log("In Here");
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         IsInAir = false;

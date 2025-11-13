@@ -4,7 +4,6 @@ public abstract class MovableInteractable : MonoBehaviour, IInteractable
 {
     [Header("Interactable Traits")]
     public bool IsInAir = false;
-    
     private int originalLayer = -1;
     private bool hasCachedLayer;
     public int OriginalLayer => originalLayer;
