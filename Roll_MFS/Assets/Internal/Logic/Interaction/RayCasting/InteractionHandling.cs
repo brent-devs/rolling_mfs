@@ -51,7 +51,11 @@ public class InteractionHandling : MonoBehaviour
     public InteractionState CurrState
     {
         get => currState;
-        set => currState = value;
+        set
+        {
+            UpdateCursorForState(value);
+            currState = value;
+        }
     }
 
     public IInteractable CurrentHoveredInteractable
@@ -158,6 +162,28 @@ public class InteractionHandling : MonoBehaviour
 
         GrabHandling.Instance.GrabObject(interactable);
         CurrState = InteractionState.Grabbing;
+    }
+
+    public void UpdateCursorForState(InteractionState newState)
+    {
+        switch (newState)
+        {
+            case InteractionState.Grabbing:
+                CursorLogic.Instance.ShowHoldingCursor();
+                break;
+            case InteractionState.Idle:
+                CursorLogic.Instance.ShowCursor();
+                break;
+            case InteractionState.MyTurn:
+                CursorLogic.Instance.ShowCursor();
+                break;
+            case InteractionState.Shopping:
+                CursorLogic.Instance.ShowCursor();
+                break;
+            case InteractionState.None:
+                CursorLogic.Instance.HideCursor();
+                break;
+        }
     }
 
     public Vector3 RaycastCursorPosOnBoard(float offset)

@@ -417,6 +417,7 @@ public class Card : PhysicsInteractable
     public void TriggerReleaseEvent()
     {
         SetupReleasePhysics();
+        ReleaseLogic();
     }
 
     public void SetupReleasePhysics()
@@ -429,5 +430,24 @@ public class Card : PhysicsInteractable
         gameObject.layer = (int)Mathf.Log(CardSettings.Instance.HeldInteractionLayer.value, 2);
         rb.angularDrag = CardSettings.Instance.AngularDragOfCardDuringHold;
         rb.drag = CardSettings.Instance.DragOfCardDuringHold;
+    }
+
+    private Coroutine releaseCoroutine;
+
+    public void ReleaseLogic()
+    {
+        InteractionHandling.Instance.CurrState = InteractionState.None;
+        if (releaseCoroutine != null)
+        {
+            StopCoroutine(releaseCoroutine);
+        }
+        releaseCoroutine = StartCoroutine(ShowCursorAfterDelay());
+    }
+
+    private IEnumerator ShowCursorAfterDelay()
+    {
+        yield return new WaitForSeconds(CardSettings.Instance.CURSOR_SHOW_SPEED);
+        InteractionHandling.Instance.CurrState = InteractionState.MyTurn;
+        releaseCoroutine = null;
     }
 }

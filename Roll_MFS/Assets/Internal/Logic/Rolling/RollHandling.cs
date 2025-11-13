@@ -34,7 +34,5 @@ public class RollHandling : MonoBehaviour
         RollStateLogic.Instance.SetIsRolling(true);
         Session.Instance.GameplayLogic.RollStarted();
     }
-
-
 }
 

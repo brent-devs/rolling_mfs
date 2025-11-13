@@ -17,6 +17,7 @@ public class CardSettings : MonoBehaviour
     public float HAND_RETURN_SPEED = 0.6f;
     public float PLATFORM_DRAW_SPEED = 0.6f;
     public float CARD_ROTATION_TO_CAM_SPEED = 2.4f;
+    public float CURSOR_SHOW_SPEED = 0.4f;
 
 
     [Header("Card Setup")]

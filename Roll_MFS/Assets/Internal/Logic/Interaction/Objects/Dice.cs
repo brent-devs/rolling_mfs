@@ -232,5 +232,6 @@ public class Dice : PhysicsInteractable
     private void HandleRollLogic()
     {
         RollHandling.Instance.HandleDiceRolled(this);
+        InteractionHandling.Instance.CurrState = InteractionState.None; 
     }
 }
