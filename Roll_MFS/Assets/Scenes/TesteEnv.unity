@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &172869759
+--- !u!1 &53287346
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,61 +130,85 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 172869760}
-  - component: {fileID: 172869763}
-  - component: {fileID: 172869762}
-  - component: {fileID: 172869761}
-  - component: {fileID: 172869764}
-  m_Layer: 6
-  m_Name: Test Die
+  - component: {fileID: 53287347}
+  - component: {fileID: 53287348}
+  m_Layer: 0
+  m_Name: GrabbingRaycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &172869760
+--- !u!4 &53287347
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172869759}
+  m_GameObject: {fileID: 53287346}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.61, z: 0.77}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 397599872}
+  m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &172869761
-BoxCollider:
+--- !u!114 &53287348
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172869759}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_GameObject: {fileID: 53287346}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &172869762
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa64cdf60df35114192305542e361019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionLayerForRaycaster:
+    serializedVersion: 2
+    m_Bits: 65
+--- !u!1 &78921113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78921114}
+  - component: {fileID: 78921116}
+  - component: {fileID: 78921115}
+  m_Layer: 0
+  m_Name: Visual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &78921114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78921113}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 172869760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &78921115
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172869759}
+  m_GameObject: {fileID: 78921113}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -220,6 +244,71 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &78921116
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78921113}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &172869759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172869760}
+  - component: {fileID: 172869763}
+  - component: {fileID: 172869761}
+  - component: {fileID: 172869764}
+  - component: {fileID: 172869765}
+  m_Layer: 6
+  m_Name: Test Die
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172869760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172869759}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.61, z: 0.77}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 78921114}
+  m_Father: {fileID: 397599872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &172869761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172869759}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &172869763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -236,9 +325,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172869759}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 0.1
+  m_Drag: 7
+  m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -255,6 +344,52 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &172869765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172869759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8682aa1e2747f94d94d352ba70cd5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInAir: 0
+  OnLiftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReleaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStoppedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCollisionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  rb: {fileID: 0}
+  HoverTextOffset: 0.08
+  visual: {fileID: 0}
+  Owner: -1
+  liftY: 0.02
+  LiftedDrag: 7
+  LiftedAngularDrag: 2
+  HalfHeight: 2
+  objectStoppedThreshold: 0.02
+  ShouldComputeStop: 1
+  RotateToCamInAir: 0
+  EulersOffsetForRotate: {x: 0, y: 0, z: 0}
+  initialHoverPos: {x: 0, y: 0, z: 0}
+  IsDisplayDice: 0
+  IsDisplayDiceCheckingResult: 0
+  CurrMax: 20
+  CurrState: 0
+  MyType: 3
+  FacesLogic: {fileID: 0}
+  renderer: {fileID: 0}
+  DragForRoll: 0.5
 --- !u!1 &246025137
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22614124, y: 0, z: 0, w: 0.9740945}
+  m_LocalRotation: {x: 0.24784453, y: 0, z: 0, w: 0.9687998}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -451,8 +586,9 @@ Transform:
   - {fileID: 1523273615}
   - {fileID: 2084724624}
   - {fileID: 2124061073}
+  - {fileID: 53287347}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 26.14, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 28.7, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,7 +796,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.29, z: 1.0200005}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 397599872}
@@ -867,7 +1003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -902,6 +1038,7 @@ GameObject:
   - component: {fileID: 805748330}
   - component: {fileID: 805748332}
   - component: {fileID: 805748331}
+  - component: {fileID: 805748333}
   m_Layer: 0
   m_Name: INTERACTION
   m_TagString: Untagged
@@ -936,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94fea2ff17c12a349b11f89157f4b0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StandardCursorRange: 3
+  StandardCursorRange: 10
 --- !u!114 &805748332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,11 +1086,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dfada249fa61942a1b8f994fd31e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeldLayerName: HeldInteractable
+  BoardElementsMask:
+    serializedVersion: 2
+    m_Bits: 0
+  AllNonUIElements:
+    serializedVersion: 2
+    m_Bits: 0
+  FollowCursorThreshold: 0.025
+  CursorFollowMagnitudeMultiplier: 1.4
+  DiceOffsetFromBoardElements: 0.07
+  DiceGrabbingMinX: 0.35
+  DiceGrabbingMaxX: 0.65
+  DiceGrabbingMinY: 0.15
+  DiceGrabbingMaxY: 0.55
+  GrabbingCursorRange: 0.79
   idleRaycaster: {fileID: 1523273616}
   shoppingRaycaster: {fileID: 2084724625}
-  rollTurnRaycaster: {fileID: 2124061074}
+  myTurnRaycaster: {fileID: 2124061074}
+  grabbingRaycaster: {fileID: 53287348}
+  Owner: 0
   mainCamera: {fileID: 330585545}
-  currState: 1
+  currState: 3
+  lastValidCursorPosForHover: {x: 0, y: 0, z: 0}
+--- !u!114 &805748333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805748329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ddf26b16f4045d092f2563154179461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHeld: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1239,170 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1476817377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476817380}
+  - component: {fileID: 1476817379}
+  - component: {fileID: 1476817378}
+  m_Layer: 0
+  m_Name: SETTINGS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1476817378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476817377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc01a8559f6d144384daf4ad6d3d50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HideInteractionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  InteractionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  HoldingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  DiceHoldingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  BoardElementsLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  AllNonUIElements:
+    serializedVersion: 2
+    m_Bits: 0
+  RollingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  PlaceLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  WhiteOutlineLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  HAND_MOVE_SPEED: 0.2
+  DECK_DRAW_SPEED: 0.6
+  HAND_RETURN_SPEED: 0.6
+  PLATFORM_DRAW_SPEED: 0.6
+  CARD_ROTATION_TO_CAM_SPEED: 2.4
+  diceFontAsset: {fileID: 0}
+  DiceGlitchMat: {fileID: 0}
+  DiceStandardMat: {fileID: 0}
+  SixFontSize: 0.72
+  EightFontSize: 0.7
+  TenFontSize: 0.66
+  TwentyFontSize: 0.44
+  WaitBeforeReturningToStandardView: 0.5
+  RollForceRange: {x: 0.21, y: 0.32}
+  RollSpinRange: {x: 0.1, y: 0.3}
+  DiceFlyTime: 1
+  DiceFloatTime: 0.35
+  DiceCamFollowZ: 0.35
+  DiceCamFollowX: 0.35
+  GroundParticleOffset: 0.02
+  DiceCamTransitionTime: 0.5
+  DelayForDiceLaunchOnCheat: 0.125
+  AngularDragOfDiceDuringRoll: 1.25
+  AngularDragOfDiceDuringSpin: 0.5
+  AngularDragOfDiceDuringHold: 0.05
+  TimeForBoxHauntToLinger: 1.2
+  CardGlitchMat: {fileID: 0}
+  CardCamTransitionTime: 0.5
+  CardActivedTime: 1.2
+  CardRaiseTime: 0.2
+  CardRaisePower: 4
+  CardSpinTime: 0.4
+  CardFadeTime: 0.2
+  CardShrinkTime: 0.4
+  CardShake: 0.4
+  CardShakeBuffer: 0.2
+  CardHoverHeight: 0.04
+  CardUnusedTime: 0.6
+  CardDestroyedTime: 1.2
+  CardPreActivatedTime: 0.15
+  CursorHideTimeAfterDrop: 0.5
+  CursorHideTimeAfterPanelClick: 0.3
+  DiceReplaceTimer: 0.7
+  CopyCatStareAtNewCard: 0.5
+  CardConsumedByChestTime: 0.15
+  SlamAnimTime_Girl: 0.6
+  WaitAfterOppDies: 1.2
+  ItemUsedCursorDelay: 0.25
+  ItemDeletionTime: 0.25
+  ItemShakeDuration: 0.6
+  PauseForItemSelection: 1.25
+  ItemGlitchMat: {fileID: 0}
+  FinishedLighterEulers: {x: 0, y: 0, z: 0}
+  StartLighterEulers: {x: 0, y: 0, z: 0}
+  StartLighterCoverEulers: {x: 0, y: 0, z: 0}
+  HallfwayLighterCoverEulers: {x: 0, y: 0, z: 0}
+  FinishedLighterCoverEulers: {x: 0, y: 0, z: 0}
+  CoverOpenStart: 0.2
+  CoverOpenFinish: 0.1
+  LighterPositionOffset: {x: 0, y: 0, z: 0}
+  ComicDropThreshold: 0.2
+  LightBulbTransitionDuration: 0.4
+  WaitBeforeOppLoss: 0.35
+  WaitBeforeCleaningBoardAfterOppLoss: 2.5
+  WaitToLookAtDeathRoll: 0.75
+  WaitToLaunchDeathRoll: 0.25
+  TutorialDisplayTime: 12
+--- !u!114 &1476817379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476817377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2041e8c5169df734e9b265d3a5ef9937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldLogRoutines: 0
+  ShouldLogEverything: 0
+  ShouldReturnToPlayerTurn: 0
+  ShouldEnemyForceRollOne: 0
+  FastMode: 0
+  CardTestMode: 0
+  DevMode: 0
+  CanSpawnInModifiers: 0
+  UsePredeterminedCards: 0
+  IsCinematicMode: 0
+--- !u!4 &1476817380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476817377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14661722, y: 0.54650414, z: -9.82917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1523273614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionLayerForRaycaster:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 128
 --- !u!1 &2124061072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1508,7 @@ GameObject:
   - component: {fileID: 2124061073}
   - component: {fileID: 2124061074}
   m_Layer: 0
-  m_Name: GrabbingRaycast
+  m_Name: MyTurnRaycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,7 +1543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionLayerForRaycaster:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1224,3 +1556,4 @@ SceneRoots:
   - {fileID: 246025141}
   - {fileID: 1151566424}
   - {fileID: 397599872}
+  - {fileID: 1476817380}

@@ -6,20 +6,40 @@ public enum InteractionState
     None,
     Idle,
     Shopping,
-    RollTurn,
+    MyTurn,
+    Grabbing,
 }
 
 public class InteractionHandling : MonoBehaviour
 {
+    [Header("Layers")]
+    public string HeldLayerName = "HeldInteractable";
+    public LayerMask BoardElementsMask;
+    public LayerMask AllNonUIElements;
+
+    [Header("Setup")]
+    public float FollowCursorThreshold = 0.025f;
+    public float CursorFollowMagnitudeMultiplier = 1.25f;
+    public float DiceOffsetFromBoardElements = 0.025f;
+    public float DiceGrabbingMinX = 0.1f;
+    public float DiceGrabbingMaxX = 0.9f;
+    public float DiceGrabbingMinY = 0.1f;
+    public float DiceGrabbingMaxY = 0.9f;
+    public float GrabbingCursorRange = 0.9f;
+
+
     [Header("Dependencies")]
     [SerializeField] private InteractionRaycaster idleRaycaster;
     [SerializeField] private InteractionRaycaster shoppingRaycaster;
-    [SerializeField] private InteractionRaycaster rollTurnRaycaster;
+    [SerializeField] private InteractionRaycaster myTurnRaycaster;
+    [SerializeField] private InteractionRaycaster grabbingRaycaster;
 
     [Header("Traits")]
+    public int Owner = 0;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private InteractionState currState;
     [SerializeField] private IInteractable currentHoveredInteractable;
+    [SerializeField] private Vector3 lastValidCursorPosForHover;
 
     public Camera MainCamera
     {
@@ -62,6 +82,20 @@ public class InteractionHandling : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (idleRaycaster == null)
+        {
+            Debug.LogError("idleRaycaster Missing");
+        }
+        if (myTurnRaycaster == null)
+        {
+            Debug.LogError("rollTurnRaycaster Missing");
+
+        }
+        if (shoppingRaycaster == null)
+        {
+            Debug.LogError("shoppingRaycaster Missing");
+        }
     }
 
     void Update()
@@ -76,8 +110,11 @@ public class InteractionHandling : MonoBehaviour
             case InteractionState.Shopping:
                 shoppingRaycaster.Raycast();
                 break;
-            case InteractionState.RollTurn:
-                rollTurnRaycaster.Raycast();
+            case InteractionState.MyTurn:
+                myTurnRaycaster.Raycast();
+                break;
+            case InteractionState.Grabbing:
+                grabbingRaycaster.Raycast();
                 break;
         }
     }
@@ -92,5 +129,82 @@ public class InteractionHandling : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void GrabObject(MovableInteractable interactable)
+    {
+        if (interactable == null)
+        {
+            Debug.LogWarning("Tried to grab a null interactable.");
+            return;
+        }
+
+        if (GrabHandling.Instance == null)
+        {
+            Debug.LogError("GrabHandling singleton is missing from the scene.");
+            return;
+        }
+
+        var heldLayer = LayerMask.NameToLayer(HeldLayerName);
+        if (heldLayer == -1)
+        {
+            Debug.LogWarning($"Held layer '{HeldLayerName}' was not found. The interactable layer was not changed.");
+        }
+        else
+        {
+            interactable.ApplyLayer(heldLayer);
+        }
+
+        GrabHandling.Instance.GrabObject(interactable);
+        CurrState = InteractionState.Grabbing;
+    }
+
+    public Vector3 RaycastCursorPosOnBoard(float offset)
+    {
+        Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, GrabbingCursorRange, BoardElementsMask))
+        {
+            Debug.Log("hit name" + hit.collider.name);
+            if (hit.collider != null)
+            {
+                Vector3 boardGameTarget = new Vector3(hit.point.x, hit.point.y + offset, hit.point.z);
+                return boardGameTarget;
+            }
+        }
+        return Vector3.zero;
+    }
+
+    public Vector3 RaycastCursorPos()
+    {
+        Vector2 mouseViewportPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        // Viewport bounds
+        float minX = DiceGrabbingMinX;
+        float maxX = DiceGrabbingMaxX;
+        float minY = DiceGrabbingMinY;
+        float maxY = DiceGrabbingMaxY;
+
+        // Clamp the viewport position
+        mouseViewportPos.x = Mathf.Clamp(mouseViewportPos.x, minX, maxX);
+        mouseViewportPos.y = Mathf.Clamp(mouseViewportPos.y, minY, maxY);
+
+        // Convert clamped viewport pos back to screen space
+        Vector3 clampedScreenPos = Camera.main.ViewportToScreenPoint(mouseViewportPos);
+
+        // Create ray from clamped screen pos
+        Ray ray = mainCamera.ScreenPointToRay(clampedScreenPos);
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, GrabbingCursorRange, AllNonUIElements))
+        {
+            if (hit.collider != null)
+            {
+                lastValidCursorPosForHover = new Vector3(hit.point.x, hit.point.y + DiceOffsetFromBoardElements, hit.point.z);
+                return lastValidCursorPosForHover;
+            }
+        }
+        lastValidCursorPosForHover = ray.GetPoint(GrabbingCursorRange);
+        return lastValidCursorPosForHover;
     }
 }
