@@ -102,5 +102,21 @@ public class ClassicGameplayLogic : GameplayLogic
 
         handler.HandHandler.MoveCardToHand(card);
     }
+
+    public override void CardGrabbed(Card card)
+    {
+        HandleCardGrabbedLogic(card);
+    }
+
+    private void HandleCardGrabbedLogic(Card card)
+    {
+        PlayerSiderHandler handler = GameSideHandler.Instance.GetPlayerSiderHandler(card.Owner); 
+        if (handler == null)
+        {
+            Debug.LogError("Handler does not exist");
+        }
+
+        handler.HandHandler.TryRemoveCard(card);
+    }
 }
 

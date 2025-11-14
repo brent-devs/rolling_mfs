@@ -103,6 +103,7 @@ public class Card : PhysicsInteractable
 
     public string GetCardName()
     {
+        /*
         switch (type)
         {
             case CardType.ReplaceSix:
@@ -126,6 +127,7 @@ public class Card : PhysicsInteractable
             case CardType.Bonfire:
                 return StringRepo.Instance.Bonfire_Name;
         }
+        */
         return "missingName";
     }
 
@@ -271,14 +273,8 @@ public class Card : PhysicsInteractable
 
     public void TurnOnCollisions()
     {
-        if (owner == 0)
-        {
-            gameObject.layer = LayerMask.NameToLayer("Interaction");
-        }
-        else
-        {
-            gameObject.layer = LayerMask.NameToLayer("InteractionHidden");
-        }
+
+        gameObject.layer = LayerMask.NameToLayer("Interactable");
         RemovePhysics();
     }
 
@@ -412,6 +408,7 @@ public class Card : PhysicsInteractable
     public void TriggerLiftEvent()
     {
         SetupLiftPhysics();
+        LiftLogic();
     }
 
     public void TriggerReleaseEvent()
@@ -430,6 +427,7 @@ public class Card : PhysicsInteractable
         gameObject.layer = (int)Mathf.Log(CardSettings.Instance.HeldInteractionLayer.value, 2);
         rb.angularDrag = CardSettings.Instance.AngularDragOfCardDuringHold;
         rb.drag = CardSettings.Instance.DragOfCardDuringHold;
+        rb.isKinematic = false;
     }
 
     private Coroutine releaseCoroutine;
@@ -443,7 +441,11 @@ public class Card : PhysicsInteractable
         }
         releaseCoroutine = StartCoroutine(ShowCursorAfterDelay());
         Session.Instance.GameplayLogic.CardDropped(this); 
+    }
 
+    public void LiftLogic()
+    {
+        Session.Instance.GameplayLogic.CardGrabbed(this); 
     }
 
     private IEnumerator ShowCursorAfterDelay()

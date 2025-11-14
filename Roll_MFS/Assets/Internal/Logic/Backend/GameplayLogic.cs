@@ -42,6 +42,7 @@ public abstract class GameplayLogic
     public abstract void EndPlayerIndexTurn(int playerIndex);
     public abstract void StartPlayerIndexTurn(int playerIndex);
     public abstract void CardDropped(Card card);
+    public abstract void CardGrabbed(Card card);
 
 }
 

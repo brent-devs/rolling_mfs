@@ -17,7 +17,7 @@ TagManager:
   - HeldInteractable
   - Rolling
   - Placable
-  - 
+  - IgnoreCollision
   - 
   - 
   - 
