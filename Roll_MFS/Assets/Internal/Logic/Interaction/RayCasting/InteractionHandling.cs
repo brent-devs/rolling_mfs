@@ -119,7 +119,6 @@ public class InteractionHandling : MonoBehaviour
                 myTurnRaycaster.Raycast();
                 break;
             case InteractionState.Grabbing:
-                grabbingRaycaster.Raycast();
                 break;
         }
     }
@@ -202,7 +201,7 @@ public class InteractionHandling : MonoBehaviour
         return Vector3.zero;
     }
 
-    public Vector3 RaycastCursorPos()
+    public Vector3 RaycastCursorPosOnBoard()
     {
         Vector2 mouseViewportPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
@@ -223,7 +222,7 @@ public class InteractionHandling : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(clampedScreenPos);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, GrabbingCursorRange, AllNonUIElements))
+        if (Physics.Raycast(ray, out hit, GrabbingCursorRange, BoardElementsMask))
         {
             if (hit.collider != null)
             {

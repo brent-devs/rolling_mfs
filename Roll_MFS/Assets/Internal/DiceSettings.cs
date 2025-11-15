@@ -17,13 +17,6 @@ public class DiceSettings : MonoBehaviour
     public LayerMask PlaceableLayer;
     public LayerMask WhiteOutlineLayer;
 
-    [Header("Hand and Grab")]
-    public float HAND_MOVE_SPEED = 0.2f;
-    public float DECK_DRAW_SPEED = 0.6f;
-    public float HAND_RETURN_SPEED = 0.6f;
-    public float PLATFORM_DRAW_SPEED = 0.6f;
-    public float CARD_ROTATION_TO_CAM_SPEED = 2.4f;
-
     [Header("Dice")]
     public TMP_FontAsset diceFontAsset;
     public Material DiceGlitchMat;
@@ -48,6 +41,8 @@ public class DiceSettings : MonoBehaviour
     public float AngularDragOfDiceDuringRoll = 1.25f;
     public float AngularDragOfDiceDuringSpin = 0.5f;
     public float AngularDragOfDiceDuringHold = 0.05f;
+
+    public float DragOfDiceDuringHold = 7.0f;
 
     [Header("Box HauntSetup")]
     public float TimeForBoxHauntToLinger = 1.2f;

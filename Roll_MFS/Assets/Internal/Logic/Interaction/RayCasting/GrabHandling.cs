@@ -99,15 +99,9 @@ public class GrabHandling : MonoBehaviour
         }
     }
 
-    private Vector3 HandleDiceTracking()
-    {
-        float potentialOffset = InteractionHandling.Instance.DiceOffsetFromBoardElements;
-        return InteractionHandling.Instance.RaycastCursorPosOnBoard(potentialOffset);
-    }
-
     private Vector3 HandleHandTracking()
     {
-        return InteractionHandling.Instance.RaycastCursorPos();
+        return InteractionHandling.Instance.RaycastCursorPosOnBoard();
     }
 
     private void CheckShouldDropObject()
