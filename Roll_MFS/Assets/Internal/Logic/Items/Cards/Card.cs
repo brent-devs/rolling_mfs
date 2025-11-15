@@ -44,43 +44,6 @@ public class Card : PhysicsInteractable
         MyCardSlot = null;
     }
 
-    public void Place(PlacementPosition pos)
-    {
-        Debug.Log("Place");
-    }
-
-    public void HandleCardRelease()
-    {
-        PlacementPosition pos = InteractionHandling.Instance.RaycastCursorPosPlacementPosition();
-        if (pos == null)
-        {
-            if (handPositioning != null)
-            {
-                // CardAudioFXManager.Instance.PlayCardReturnedToHand();
-                //handPositioning.TryMoveCardToHand(this, transform.position, CardFlyType.ReturnToHand);
-                handPositioning.HandleCardDrop();
-            }
-            // CursorSettings.Instance.ShowCursorFromItemUseAfterDelay();
-            return;
-        }
-        if (pos.IsValidPlacement(gameObject))
-        {
-            // pos.PlaceCard(this, placementOffset);
-            //ExternalLogger.Instance.CardEventLog("card_placed", GetCardName(), this, "target_position", pos.IsAttack ? "oppose" : "self");
-            handPositioning.HandleCardDrop();
-        }
-        else
-        {
-            if (handPositioning != null)
-            {
-                // CardAudioFXManager.Instance.PlayCardReturnedToHand();
-                //handPositioning.TryMoveCardToHand(this, transform.position, CardFlyType.ReturnToHand);
-                handPositioning.HandleCardDrop();
-            }
-        }
-        // CursorSettings.Instance.ShowCursorFromItemUseAfterDelay();
-    }
-
     public void HandleCardPickUp()
     {
         if (handPositioning != null)
@@ -417,7 +380,20 @@ public class Card : PhysicsInteractable
         ReleaseLogic();
     }
 
+    public void TriggerPlacedEvent()
+    {
+        // TODO(oliver): setup placed evemt
+        SetupPlacePhysics();
+        PlaceLogic();
+    }
+
+
     public void SetupReleasePhysics()
+    {
+        gameObject.layer = (int)Mathf.Log(CardSettings.Instance.InteractionLayer.value, 2);
+    }
+
+    public void SetupPlacePhysics()
     {
         gameObject.layer = (int)Mathf.Log(CardSettings.Instance.InteractionLayer.value, 2);
     }
@@ -443,6 +419,16 @@ public class Card : PhysicsInteractable
         Session.Instance.GameplayLogic.CardDropped(this); 
     }
 
+    public void PlaceLogic()
+    {
+        InteractionHandling.Instance.CurrState = InteractionState.None;
+        if (releaseCoroutine != null)
+        {
+            StopCoroutine(releaseCoroutine);
+        }
+        releaseCoroutine = StartCoroutine(ShowCursorAfterDelay());
+    }
+
     public void LiftLogic()
     {
         Session.Instance.GameplayLogic.CardGrabbed(this); 
@@ -454,4 +440,35 @@ public class Card : PhysicsInteractable
         InteractionHandling.Instance.CurrState = InteractionState.MyTurn;
         releaseCoroutine = null;
     }
+
+    public override Vector3 HandleHeldPosTracking()
+    {
+        PlacementPosition potentialPos = InteractionHandling.Instance.RaycastCursorPosPlacementPosition();
+        if (potentialPos != null)
+        {
+            return potentialPos.transform.position;
+        }
+        else
+        {
+            return base.HandleHeldPosTracking();
+        }
+    }
+
+    public override bool IsOverPlacementPos()
+    {
+        PlacementPosition potentialPos = InteractionHandling.Instance.RaycastCursorPosPlacementPosition();
+        return potentialPos != null;
+    }
+
+    public override PlacementPosition GetPlacementPosIsOver()
+    {
+        return InteractionHandling.Instance.RaycastCursorPosPlacementPosition();
+    }
+
+    public override void OnPlaced(PlacementPosition posToPlaceInto)
+    {
+        posToPlaceInto.PlaceCard(this, 0.1f);
+        OnPlacedEvent.Invoke();
+    }
+
 }

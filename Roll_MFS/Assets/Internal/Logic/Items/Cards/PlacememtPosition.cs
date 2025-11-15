@@ -2,16 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public enum PlacementType {
-    Card,
-    Item,
-}
-
 public class PlacementPosition : MonoBehaviour
 {
     [Header("Setup")]
-    public PlacementType myType = PlacementType.Card;
     public bool IsAttack = false;
+    public bool IsCardPlacement = true;
 
     [Header("Dependencies")]
     public ActionGroupDisplay displayActionableGroup; 
@@ -22,8 +17,9 @@ public class PlacementPosition : MonoBehaviour
     [Header("HookIns")]
     public UnityEvent OnCardPlaced;
 
-    public bool IsValidPlacement(GameObject thingBeingPlaced) {
-        if (myType == PlacementType.Card) {
+    public bool IsValidPlacement(MovableInteractable thingBeingPlaced) {
+        if (IsCardPlacement)
+        {
             Card cardToPlace = thingBeingPlaced.GetComponent<Card>();
             if (cardToPlace != null && cardToPlace.IsValidPlacement(this)) {
                 if (currentCardIn == null) {
@@ -31,6 +27,7 @@ public class PlacementPosition : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 

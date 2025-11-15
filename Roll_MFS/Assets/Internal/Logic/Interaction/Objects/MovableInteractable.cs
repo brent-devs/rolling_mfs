@@ -49,5 +49,25 @@ public abstract class MovableInteractable : MonoBehaviour, IInteractable
     public virtual void OnReleased()
     {
     }
+
+    public virtual void OnPlaced(PlacementPosition posToPlaceInto)
+    {
+    }
+
+
+    public virtual Vector3 HandleHeldPosTracking()
+    {
+        return InteractionHandling.Instance.RaycastCursorPosOnBoard();
+    }
+
+    public virtual bool IsOverPlacementPos()
+    {
+        return false;
+    }
+
+    public virtual PlacementPosition GetPlacementPosIsOver()
+    {
+        return null;
+    }
 }
 

@@ -23,6 +23,7 @@ public class PhysicsInteractable : MovableInteractable
     public UnityEvent OnReleaseEvent;
     public UnityEvent OnStoppedEvent;
     public UnityEvent OnCollisionEvent;
+    public UnityEvent OnPlacedEvent;
     public Rigidbody rb;
     public float HoverTextOffset = 0.08f;
 

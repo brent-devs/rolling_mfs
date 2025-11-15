@@ -235,4 +235,9 @@ public class Dice : PhysicsInteractable
         RollHandling.Instance.HandleDiceRolled(this);
         InteractionHandling.Instance.CurrState = InteractionState.None; 
     }
+
+    public override Vector3 HandleHeldPosTracking()
+    {
+        return base.HandleHeldPosTracking();
+    }
 }

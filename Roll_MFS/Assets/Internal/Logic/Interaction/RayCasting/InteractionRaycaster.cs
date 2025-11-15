@@ -56,6 +56,7 @@ public class InteractionRaycaster : MonoBehaviour
         if (CursorLogic.Instance.State != CursorState.Hidden)
         {
             InteractionHandling.Instance.CurrentHoveredInteractable = null;
+            CursorLogic.Instance.State = CursorState.Visible;
         }
     }
 }

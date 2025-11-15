@@ -101,7 +101,7 @@ public class GrabHandling : MonoBehaviour
 
     private Vector3 HandleHandTracking()
     {
-        return InteractionHandling.Instance.RaycastCursorPosOnBoard();
+        return CurrentHeld.HandleHeldPosTracking();
     }
 
     private void CheckShouldDropObject()
@@ -175,8 +175,19 @@ public class GrabHandling : MonoBehaviour
         }
         */
 
-        // Action visuals
-        StartCoroutine(WaitAFrameAndHanldRelease(CurrentHeld));
+        if (CurrentHeld.IsOverPlacementPos()) 
+        {
+            Debug.Log("IsOverPlacementPos");
+            if (CurrentHeld.GetPlacementPosIsOver().IsValidPlacement(CurrentHeld)) {
+                Debug.Log("IsValidPlacement");
+                PlacementPosition pos = CurrentHeld.GetPlacementPosIsOver();
+                StartCoroutine(WaitAFrameAndHandlePlaced(CurrentHeld, pos));
+            }
+        }
+        else
+        {
+            StartCoroutine(WaitAFrameAndHandleReleased(CurrentHeld));
+        }
         CurrentHeld = null;
     }
     
@@ -232,7 +243,7 @@ public class GrabHandling : MonoBehaviour
         }
         */
 
-        StartCoroutine(WaitAFrameAndHanldRelease(CurrentHeld));
+        StartCoroutine(WaitAFrameAndHandleReleased(CurrentHeld));
         CurrentHeld = null;
     }
     
@@ -242,10 +253,17 @@ public class GrabHandling : MonoBehaviour
     }
 
 
-    private IEnumerator WaitAFrameAndHanldRelease(MovableInteractable movableObj)
+    private IEnumerator WaitAFrameAndHandleReleased(MovableInteractable movableObj)
     {
         yield return new WaitForSeconds(0.1f);
         movableObj.OnReleased();
+    }
+
+    private IEnumerator WaitAFrameAndHandlePlaced(MovableInteractable movableObj, PlacementPosition pos)
+    {
+        Debug.Log("WaitAFrameAndHandlePlaced");
+        yield return new WaitForSeconds(0.1f);
+        movableObj.OnPlaced(pos);
     }
 }
 
