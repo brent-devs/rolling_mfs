@@ -431,6 +431,11 @@ public class Card : PhysicsInteractable
 
     public void LiftLogic()
     {
+        if (MyPlacementPosition != null)
+        {
+            MyPlacementPosition.RemoveCard();
+            MyPlacementPosition = null;
+        }
         Session.Instance.GameplayLogic.CardGrabbed(this); 
     }
 
